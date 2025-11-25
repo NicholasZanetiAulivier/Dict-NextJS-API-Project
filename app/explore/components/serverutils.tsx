@@ -1,5 +1,7 @@
 "use server";
 
+import { prisma } from "@/lib/prisma";
+
 async function fetchLabels(list: string[]) {
     "use server"
     const arr: string[][] = [];
@@ -30,4 +32,16 @@ async function fetchLabels(list: string[]) {
     return arr;
 }
 
-export { fetchLabels };
+async function setFavorite(word: string) {
+    await prisma.$connect();
+    await prisma.$queryRaw`INSERT OR IGNORE INTO favorite(word) VALUES (${word});`
+    console.log(await prisma.$queryRaw`SELECT * FROM Favorite;`);
+}
+
+async function setUnFavorite(word: string) {
+    await prisma.$connect();
+    await prisma.$queryRaw`DELETE FROM favorite where word=${word}`
+    console.log(await prisma.$queryRaw`SELECT * FROM Favorite;`);
+}
+
+export { fetchLabels, setFavorite, setUnFavorite };

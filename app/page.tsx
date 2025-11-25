@@ -14,7 +14,7 @@ export default function Home() {
         </Col>
       </Row>
       <Row>
-        <Button href="/dict" className="btn-primary m-auto">Word list</Button>
+        <Button href="/explore" className="btn-primary m-auto">Word list</Button>
       </Row>
     </Container>
   );

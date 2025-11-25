@@ -3,7 +3,8 @@ import { Badge, Button, Form, Table } from "react-bootstrap";
 import words from "an-array-of-english-words";
 import { arrayToShuffled } from "array-shuffle";
 import { useEffect, useState } from "react";
-import { fetchLabels } from "./serverutils";
+import { fetchLabels, setFavorite } from "./serverutils";
+import { StarFill } from "react-bootstrap-icons";
 
 export default function WordsTable() {
     const [random, setRandom] = useState<boolean>(false);
@@ -111,7 +112,7 @@ export default function WordsTable() {
                                     <td className="align-middle">{!loading ? filteredLables[i] ? filteredLables[i].map((label, index) => {
                                         return (<Badge key={index}>{label}</Badge>)
                                     }) : <Badge>NotFound</Badge> : <Badge>Loading</Badge>}</td>
-                                    <td><Button href={`/dict/${item}`}>Definition</Button></td>
+                                    <td><Button href={`/explore/${item}`}>Definition</Button><Button onClick={() => setFavorite(item)}><StarFill color="yelow" /></Button></td>
                                 </tr>
                             );
                         })
